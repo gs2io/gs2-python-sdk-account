@@ -19,14 +19,14 @@ class TakeOver(object):
     def __init__(self, params=None):
         if params is None:
             self.__user_id = None
-            self.__create_at = None
             self.__type = None
             self.__user_identifier = None
+            self.__create_at = None
         else:
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
-            self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
             self.set_type(params['type'] if 'type' in params.keys() else None)
             self.set_user_identifier(params['userIdentifier'] if 'userIdentifier' in params.keys() else None)
+            self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
 
 
     def get_user_id(self):
@@ -44,22 +44,6 @@ class TakeOver(object):
         :type user_id: unicode
         """
         self.__user_id = user_id
-
-    def get_create_at(self):
-        """
-        作成日時(エポック秒)を取得
-        :return: 作成日時(エポック秒)
-        :rtype: int
-        """
-        return self.__create_at
-
-    def set_create_at(self, create_at):
-        """
-        作成日時(エポック秒)を設定
-        :param create_at: 作成日時(エポック秒)
-        :type create_at: int
-        """
-        self.__create_at = create_at
 
     def get_type(self):
         """
@@ -93,10 +77,26 @@ class TakeOver(object):
         """
         self.__user_identifier = user_identifier
 
+    def get_create_at(self):
+        """
+        作成日時(エポック秒)を取得
+        :return: 作成日時(エポック秒)
+        :rtype: int
+        """
+        return self.__create_at
+
+    def set_create_at(self, create_at):
+        """
+        作成日時(エポック秒)を設定
+        :param create_at: 作成日時(エポック秒)
+        :type create_at: int
+        """
+        self.__create_at = create_at
+
     def to_dict(self):
         return { 
             "userId": self.__user_id,
-            "createAt": self.__create_at,
             "type": self.__type,
             "userIdentifier": self.__user_identifier,
+            "createAt": self.__create_at,
         }

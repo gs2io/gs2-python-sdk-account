@@ -18,30 +18,14 @@ class Account(object):
 
     def __init__(self, params=None):
         if params is None:
-            self.__password = None
             self.__user_id = None
+            self.__password = None
             self.__create_at = None
         else:
-            self.set_password(params['password'] if 'password' in params.keys() else None)
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
+            self.set_password(params['password'] if 'password' in params.keys() else None)
             self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
 
-
-    def get_password(self):
-        """
-        パスワードを取得
-        :return: パスワード
-        :rtype: unicode
-        """
-        return self.__password
-
-    def set_password(self, password):
-        """
-        パスワードを設定
-        :param password: パスワード
-        :type password: unicode
-        """
-        self.__password = password
 
     def get_user_id(self):
         """
@@ -58,6 +42,22 @@ class Account(object):
         :type user_id: unicode
         """
         self.__user_id = user_id
+
+    def get_password(self):
+        """
+        パスワードを取得
+        :return: パスワード
+        :rtype: unicode
+        """
+        return self.__password
+
+    def set_password(self, password):
+        """
+        パスワードを設定
+        :param password: パスワード
+        :type password: unicode
+        """
+        self.__password = password
 
     def get_create_at(self):
         """
@@ -77,7 +77,7 @@ class Account(object):
 
     def to_dict(self):
         return { 
-            "password": self.__password,
             "userId": self.__user_id,
+            "password": self.__password,
             "createAt": self.__create_at,
         }

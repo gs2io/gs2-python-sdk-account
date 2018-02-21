@@ -33,13 +33,13 @@ class AuthenticationRequest(Gs2BasicRequest):
         if params is None:
             self.__game_name = None
             self.__user_id = None
-            self.__password = None
             self.__key_name = None
+            self.__password = None
         else:
             self.set_game_name(params['gameName'] if 'gameName' in params.keys() else None)
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
-            self.set_password(params['password'] if 'password' in params.keys() else None)
             self.set_key_name(params['keyName'] if 'keyName' in params.keys() else None)
+            self.set_password(params['password'] if 'password' in params.keys() else None)
 
     def get_game_name(self):
         """
@@ -95,33 +95,6 @@ class AuthenticationRequest(Gs2BasicRequest):
         self.set_user_id(user_id)
         return self
 
-    def get_password(self):
-        """
-        認証に利用するパスワードを取得
-        :return: 認証に利用するパスワード
-        :rtype: unicode
-        """
-        return self.__password
-
-    def set_password(self, password):
-        """
-        認証に利用するパスワードを設定
-        :param password: 認証に利用するパスワード
-        :type password: unicode
-        """
-        self.__password = password
-
-    def with_password(self, password):
-        """
-        認証に利用するパスワードを設定
-        :param password: 認証に利用するパスワード
-        :type password: unicode
-        :return: this
-        :rtype: AuthenticationRequest
-        """
-        self.set_password(password)
-        return self
-
     def get_key_name(self):
         """
         認証結果の暗号化に利用する GS2-Key の暗号鍵名を取得
@@ -147,4 +120,31 @@ class AuthenticationRequest(Gs2BasicRequest):
         :rtype: AuthenticationRequest
         """
         self.set_key_name(key_name)
+        return self
+
+    def get_password(self):
+        """
+        認証に利用するパスワードを取得
+        :return: 認証に利用するパスワード
+        :rtype: unicode
+        """
+        return self.__password
+
+    def set_password(self, password):
+        """
+        認証に利用するパスワードを設定
+        :param password: 認証に利用するパスワード
+        :type password: unicode
+        """
+        self.__password = password
+
+    def with_password(self, password):
+        """
+        認証に利用するパスワードを設定
+        :param password: 認証に利用するパスワード
+        :type password: unicode
+        :return: this
+        :rtype: AuthenticationRequest
+        """
+        self.set_password(password)
         return self

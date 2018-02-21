@@ -34,14 +34,14 @@ class UpdateTakeOverRequest(Gs2UserRequest):
             self.__game_name = None
             self.__type = None
             self.__user_identifier = None
-            self.__password = None
             self.__old_password = None
+            self.__password = None
         else:
             self.set_game_name(params['gameName'] if 'gameName' in params.keys() else None)
             self.set_type(params['type'] if 'type' in params.keys() else None)
             self.set_user_identifier(params['userIdentifier'] if 'userIdentifier' in params.keys() else None)
-            self.set_password(params['password'] if 'password' in params.keys() else None)
             self.set_old_password(params['oldPassword'] if 'oldPassword' in params.keys() else None)
+            self.set_password(params['password'] if 'password' in params.keys() else None)
 
     def get_game_name(self):
         """
@@ -130,35 +130,6 @@ class UpdateTakeOverRequest(Gs2UserRequest):
         self.set_user_identifier(user_identifier)
         return self
 
-    def get_password(self):
-        """
-        引き継ぎ時に利用する新しいパスワードを取得
-        :return: 引き継ぎ時に利用する新しいパスワード
-        :rtype: unicode
-        """
-        return self.__password
-
-    def set_password(self, password):
-        """
-        引き継ぎ時に利用する新しいパスワードを設定
-        :param password: 引き継ぎ時に利用する新しいパスワード
-        :type password: unicode
-        """
-        if not isinstance(password, unicode):
-            raise TypeError(type(password))
-        self.__password = password
-
-    def with_password(self, password):
-        """
-        引き継ぎ時に利用する新しいパスワードを設定
-        :param password: 引き継ぎ時に利用する新しいパスワード
-        :type password: unicode
-        :return: this
-        :rtype: UpdateTakeOverRequest
-        """
-        self.set_password(password)
-        return self
-
     def get_old_password(self):
         """
         引き継ぎ時に利用する現在設定されているパスワードを取得
@@ -186,4 +157,33 @@ class UpdateTakeOverRequest(Gs2UserRequest):
         :rtype: UpdateTakeOverRequest
         """
         self.set_old_password(old_password)
+        return self
+
+    def get_password(self):
+        """
+        引き継ぎ時に利用する新しいパスワードを取得
+        :return: 引き継ぎ時に利用する新しいパスワード
+        :rtype: unicode
+        """
+        return self.__password
+
+    def set_password(self, password):
+        """
+        引き継ぎ時に利用する新しいパスワードを設定
+        :param password: 引き継ぎ時に利用する新しいパスワード
+        :type password: unicode
+        """
+        if not isinstance(password, unicode):
+            raise TypeError(type(password))
+        self.__password = password
+
+    def with_password(self, password):
+        """
+        引き継ぎ時に利用する新しいパスワードを設定
+        :param password: 引き継ぎ時に利用する新しいパスワード
+        :type password: unicode
+        :return: this
+        :rtype: UpdateTakeOverRequest
+        """
+        self.set_password(password)
         return self
