@@ -57,7 +57,7 @@ class UpdateTakeOverRequest(Gs2UserRequest):
         :param game_name: ゲームの名前を指定します。
         :type game_name: unicode
         """
-        if not isinstance(game_name, unicode):
+        if game_name and not isinstance(game_name, unicode):
             raise TypeError(type(game_name))
         self.__game_name = game_name
 
@@ -86,7 +86,7 @@ class UpdateTakeOverRequest(Gs2UserRequest):
         :param user_identifier: 更新する引き継ぎ情報のユーザ固有IDを指定します。
         :type user_identifier: unicode
         """
-        if not isinstance(user_identifier, unicode):
+        if user_identifier and not isinstance(user_identifier, unicode):
             raise TypeError(type(user_identifier))
         self.__user_identifier = user_identifier
 
@@ -115,7 +115,7 @@ class UpdateTakeOverRequest(Gs2UserRequest):
         :param old_password: 引き継ぎ時に利用する現在設定されているパスワード
         :type old_password: unicode
         """
-        if not isinstance(old_password, unicode):
+        if old_password and not isinstance(old_password, unicode):
             raise TypeError(type(old_password))
         self.__old_password = old_password
 
@@ -144,7 +144,7 @@ class UpdateTakeOverRequest(Gs2UserRequest):
         :param password: 引き継ぎ時に利用する新しいパスワード
         :type password: unicode
         """
-        if not isinstance(password, unicode):
+        if password and not isinstance(password, unicode):
             raise TypeError(type(password))
         self.__password = password
 
@@ -173,7 +173,7 @@ class UpdateTakeOverRequest(Gs2UserRequest):
         :param _type: 更新する引き継ぎ情報の種類を指定します。
         :type _type: int
         """
-        if not isinstance(_type, int):
+        if type and not isinstance(_type, int):
             raise TypeError(type(_type))
         self.__type = _type
 

@@ -55,7 +55,7 @@ class CreateTakeOverRequest(Gs2UserRequest):
         :param game_name: ゲームの名前を指定します。
         :type game_name: unicode
         """
-        if not isinstance(game_name, unicode):
+        if game_name and not isinstance(game_name, unicode):
             raise TypeError(type(game_name))
         self.__game_name = game_name
 
@@ -84,7 +84,7 @@ class CreateTakeOverRequest(Gs2UserRequest):
         :param user_identifier: 引き継ぎに使用するユーザ固有のID
         :type user_identifier: unicode
         """
-        if not isinstance(user_identifier, unicode):
+        if user_identifier and not isinstance(user_identifier, unicode):
             raise TypeError(type(user_identifier))
         self.__user_identifier = user_identifier
 
@@ -113,7 +113,7 @@ class CreateTakeOverRequest(Gs2UserRequest):
         :param password: 引き継ぎ時に利用するパスワード
         :type password: unicode
         """
-        if not isinstance(password, unicode):
+        if password and not isinstance(password, unicode):
             raise TypeError(type(password))
         self.__password = password
 
@@ -142,7 +142,7 @@ class CreateTakeOverRequest(Gs2UserRequest):
         :param _type: 引き継ぎ情報の種類を表す数値
         :type _type: int
         """
-        if not isinstance(_type, int):
+        if type and not isinstance(_type, int):
             raise TypeError(type(_type))
         self.__type = _type
 
