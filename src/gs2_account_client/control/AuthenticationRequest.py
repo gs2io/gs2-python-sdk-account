@@ -32,13 +32,19 @@ class AuthenticationRequest(Gs2BasicRequest):
         super(AuthenticationRequest, self).__init__(params)
         if params is None:
             self.__game_name = None
-            self.__user_id = None
-            self.__key_name = None
-            self.__password = None
         else:
             self.set_game_name(params['gameName'] if 'gameName' in params.keys() else None)
+        if params is None:
+            self.__user_id = None
+        else:
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
+        if params is None:
+            self.__key_name = None
+        else:
             self.set_key_name(params['keyName'] if 'keyName' in params.keys() else None)
+        if params is None:
+            self.__password = None
+        else:
             self.set_password(params['password'] if 'password' in params.keys() else None)
 
     def get_game_name(self):
@@ -55,6 +61,8 @@ class AuthenticationRequest(Gs2BasicRequest):
         :param game_name: ゲームの名前を指定します。
         :type game_name: unicode
         """
+        if not isinstance(game_name, unicode):
+            raise TypeError(type(game_name))
         self.__game_name = game_name
 
     def with_game_name(self, game_name):
@@ -82,6 +90,8 @@ class AuthenticationRequest(Gs2BasicRequest):
         :param user_id: 認証する対象アカウントのユーザIDを指定します。
         :type user_id: unicode
         """
+        if not isinstance(user_id, unicode):
+            raise TypeError(type(user_id))
         self.__user_id = user_id
 
     def with_user_id(self, user_id):
@@ -109,6 +119,8 @@ class AuthenticationRequest(Gs2BasicRequest):
         :param key_name: 認証結果の暗号化に利用する GS2-Key の暗号鍵名
         :type key_name: unicode
         """
+        if not isinstance(key_name, unicode):
+            raise TypeError(type(key_name))
         self.__key_name = key_name
 
     def with_key_name(self, key_name):
@@ -136,6 +148,8 @@ class AuthenticationRequest(Gs2BasicRequest):
         :param password: 認証に利用するパスワード
         :type password: unicode
         """
+        if not isinstance(password, unicode):
+            raise TypeError(type(password))
         self.__password = password
 
     def with_password(self, password):

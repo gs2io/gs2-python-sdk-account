@@ -32,13 +32,19 @@ class DoTakeOverRequest(Gs2BasicRequest):
         super(DoTakeOverRequest, self).__init__(params)
         if params is None:
             self.__game_name = None
-            self.__type = None
-            self.__user_identifier = None
-            self.__password = None
         else:
             self.set_game_name(params['gameName'] if 'gameName' in params.keys() else None)
+        if params is None:
+            self.__type = None
+        else:
             self.set_type(params['type'] if 'type' in params.keys() else None)
+        if params is None:
+            self.__user_identifier = None
+        else:
             self.set_user_identifier(params['userIdentifier'] if 'userIdentifier' in params.keys() else None)
+        if params is None:
+            self.__password = None
+        else:
             self.set_password(params['password'] if 'password' in params.keys() else None)
 
     def get_game_name(self):
@@ -55,6 +61,8 @@ class DoTakeOverRequest(Gs2BasicRequest):
         :param game_name: ゲームの名前を指定します。
         :type game_name: unicode
         """
+        if not isinstance(game_name, unicode):
+            raise TypeError(type(game_name))
         self.__game_name = game_name
 
     def with_game_name(self, game_name):
@@ -66,33 +74,6 @@ class DoTakeOverRequest(Gs2BasicRequest):
         :rtype: DoTakeOverRequest
         """
         self.set_game_name(game_name)
-        return self
-
-    def get_type(self):
-        """
-        引き継ぎ情報の種類を指定します。を取得
-        :return: 引き継ぎ情報の種類を指定します。
-        :rtype: int
-        """
-        return self.__type
-
-    def set_type(self, type):
-        """
-        引き継ぎ情報の種類を指定します。を設定
-        :param type: 引き継ぎ情報の種類を指定します。
-        :type type: int
-        """
-        self.__type = type
-
-    def with_type(self, type):
-        """
-        引き継ぎ情報の種類を指定します。を設定
-        :param type: 引き継ぎ情報の種類を指定します。
-        :type type: int
-        :return: this
-        :rtype: DoTakeOverRequest
-        """
-        self.set_type(type)
         return self
 
     def get_user_identifier(self):
@@ -109,6 +90,8 @@ class DoTakeOverRequest(Gs2BasicRequest):
         :param user_identifier: 引き継ぎ情報のユーザ固有ID
         :type user_identifier: unicode
         """
+        if not isinstance(user_identifier, unicode):
+            raise TypeError(type(user_identifier))
         self.__user_identifier = user_identifier
 
     def with_user_identifier(self, user_identifier):
@@ -136,6 +119,8 @@ class DoTakeOverRequest(Gs2BasicRequest):
         :param password: 引き継ぎ設定に指定されたパスワード
         :type password: unicode
         """
+        if not isinstance(password, unicode):
+            raise TypeError(type(password))
         self.__password = password
 
     def with_password(self, password):
@@ -147,4 +132,33 @@ class DoTakeOverRequest(Gs2BasicRequest):
         :rtype: DoTakeOverRequest
         """
         self.set_password(password)
+        return self
+
+    def get_type(self):
+        """
+        引き継ぎ情報の種類を指定します。を取得
+        :return: 引き継ぎ情報の種類を指定します。
+        :rtype: int
+        """
+        return self.__type
+
+    def set_type(self, _type):
+        """
+        引き継ぎ情報の種類を指定します。を設定
+        :param _type: 引き継ぎ情報の種類を指定します。
+        :type _type: int
+        """
+        if not isinstance(_type, int):
+            raise TypeError(type(_type))
+        self.__type = _type
+
+    def with_type(self, _type):
+        """
+        引き継ぎ情報の種類を指定します。を設定
+        :param _type: 引き継ぎ情報の種類を指定します。
+        :type _type: int
+        :return: this
+        :rtype: DoTakeOverRequest
+        """
+        self.set_type(_type)
         return self

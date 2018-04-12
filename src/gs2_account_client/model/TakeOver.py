@@ -14,6 +14,7 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
+
 class TakeOver(object):
 
     def __init__(self, params=None):
@@ -27,7 +28,6 @@ class TakeOver(object):
             self.set_type(params['type'] if 'type' in params.keys() else None)
             self.set_user_identifier(params['userIdentifier'] if 'userIdentifier' in params.keys() else None)
             self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
-
 
     def get_user_id(self):
         """
@@ -44,22 +44,6 @@ class TakeOver(object):
         :type user_id: unicode
         """
         self.__user_id = user_id
-
-    def get_type(self):
-        """
-        アカウント種別を取得
-        :return: アカウント種別
-        :rtype: int
-        """
-        return self.__type
-
-    def set_type(self, type):
-        """
-        アカウント種別を設定
-        :param type: アカウント種別
-        :type type: int
-        """
-        self.__type = type
 
     def get_user_identifier(self):
         """
@@ -93,8 +77,24 @@ class TakeOver(object):
         """
         self.__create_at = create_at
 
+    def get_type(self):
+        """
+        アカウント種別を取得
+        :return: アカウント種別
+        :rtype: int
+        """
+        return self.__type
+
+    def set_type(self, _type):
+        """
+        アカウント種別を設定
+        :param _type: アカウント種別
+        :type _type: int
+        """
+        self.__type = _type
+
     def to_dict(self):
-        return { 
+        return {
             "userId": self.__user_id,
             "type": self.__type,
             "userIdentifier": self.__user_identifier,

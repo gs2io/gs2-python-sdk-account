@@ -14,8 +14,6 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-import json
-
 from gs2_core_client.Gs2Constant import Gs2Constant
 from gs2_core_client.AbstractGs2Client import AbstractGs2Client
 
@@ -33,7 +31,6 @@ class Gs2AccountClient(AbstractGs2Client):
         :type region: str
         """
         super(Gs2AccountClient, self).__init__(credential, region)
-
 
     def authentication(self, request):
         """
@@ -56,19 +53,15 @@ class Gs2AccountClient(AbstractGs2Client):
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.AuthenticationRequest import AuthenticationRequest
-
         from gs2_account_client.control.AuthenticationResult import AuthenticationResult
         return AuthenticationResult(self._do_post_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
             service=self.ENDPOINT,
-            module=AuthenticationRequest.Constant.MODULE,
-            function=AuthenticationRequest.Constant.FUNCTION,
+            component=AuthenticationRequest.Constant.MODULE,
+            target_function=AuthenticationRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
-
-
-
 
     def create_account(self, request):
         """
@@ -89,19 +82,69 @@ class Gs2AccountClient(AbstractGs2Client):
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.CreateAccountRequest import CreateAccountRequest
-
         from gs2_account_client.control.CreateAccountResult import CreateAccountResult
         return CreateAccountResult(self._do_post_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account",
             service=self.ENDPOINT,
-            module=CreateAccountRequest.Constant.MODULE,
-            function=CreateAccountRequest.Constant.FUNCTION,
+            component=CreateAccountRequest.Constant.MODULE,
+            target_function=CreateAccountRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
 
+    def delete_account(self, request):
+        """
+        アカウントを削除します<br>
+        <br>
+        - 消費クオータ: 10<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_account_client.control.DeleteAccountRequest.DeleteAccountRequest
+        """
+        query_strings = {}
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_account_client.control.DeleteAccountRequest import DeleteAccountRequest
+        self._do_delete_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
+            service=self.ENDPOINT,
+            component=DeleteAccountRequest.Constant.MODULE,
+            target_function=DeleteAccountRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        )
 
+    def describe_account(self, request):
+        """
+        アカウントを取得します<br>
+        <br>
+        - 消費クオータ: 50件あたり5<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_account_client.control.DescribeAccountRequest.DescribeAccountRequest
+        :return: 結果
+        :rtype: gs2_account_client.control.DescribeAccountResult.DescribeAccountResult
+        """
+        query_strings = {
+            'pageToken': request.get_page_token(),
+            'limit': request.get_limit(),
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_account_client.control.DescribeAccountRequest import DescribeAccountRequest
 
+        from gs2_account_client.control.DescribeAccountResult import DescribeAccountResult
+        return DescribeAccountResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account",
+            service=self.ENDPOINT,
+            component=DescribeAccountRequest.Constant.MODULE,
+            target_function=DescribeAccountRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
 
     def create_game(self, request):
         """
@@ -124,6 +167,10 @@ class Gs2AccountClient(AbstractGs2Client):
             body["createAccountTriggerScript"] = request.get_create_account_trigger_script()
         if request.get_create_account_done_trigger_script() is not None:
             body["createAccountDoneTriggerScript"] = request.get_create_account_done_trigger_script()
+        if request.get_authentication_trigger_script() is not None:
+            body["authenticationTriggerScript"] = request.get_authentication_trigger_script()
+        if request.get_authentication_done_trigger_script() is not None:
+            body["authenticationDoneTriggerScript"] = request.get_authentication_done_trigger_script()
         if request.get_create_take_over_trigger_script() is not None:
             body["createTakeOverTriggerScript"] = request.get_create_take_over_trigger_script()
         if request.get_create_take_over_done_trigger_script() is not None:
@@ -137,19 +184,189 @@ class Gs2AccountClient(AbstractGs2Client):
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.CreateGameRequest import CreateGameRequest
-
         from gs2_account_client.control.CreateGameResult import CreateGameResult
         return CreateGameResult(self._do_post_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game",
             service=self.ENDPOINT,
-            module=CreateGameRequest.Constant.MODULE,
-            function=CreateGameRequest.Constant.FUNCTION,
+            component=CreateGameRequest.Constant.MODULE,
+            target_function=CreateGameRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
 
+    def delete_game(self, request):
+        """
+        ゲームを削除します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_account_client.control.DeleteGameRequest.DeleteGameRequest
+        """
+        query_strings = {}
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_account_client.control.DeleteGameRequest import DeleteGameRequest
+        self._do_delete_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
+            service=self.ENDPOINT,
+            component=DeleteGameRequest.Constant.MODULE,
+            target_function=DeleteGameRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        )
 
+    def describe_game(self, request):
+        """
+        ゲームの一覧を取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_account_client.control.DescribeGameRequest.DescribeGameRequest
+        :return: 結果
+        :rtype: gs2_account_client.control.DescribeGameResult.DescribeGameResult
+        """
+        query_strings = {
+            'pageToken': request.get_page_token(),
+            'limit': request.get_limit(),
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_account_client.control.DescribeGameRequest import DescribeGameRequest
 
+        from gs2_account_client.control.DescribeGameResult import DescribeGameResult
+        return DescribeGameResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/game",
+            service=self.ENDPOINT,
+            component=DescribeGameRequest.Constant.MODULE,
+            target_function=DescribeGameRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def describe_service_class(self, request):
+        """
+        サービスクラスの一覧を取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_account_client.control.DescribeServiceClassRequest.DescribeServiceClassRequest
+        :return: 結果
+        :rtype: gs2_account_client.control.DescribeServiceClassResult.DescribeServiceClassResult
+        """
+        query_strings = {
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_account_client.control.DescribeServiceClassRequest import DescribeServiceClassRequest
+
+        from gs2_account_client.control.DescribeServiceClassResult import DescribeServiceClassResult
+        return DescribeServiceClassResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/game/serviceClass",
+            service=self.ENDPOINT,
+            component=DescribeServiceClassRequest.Constant.MODULE,
+            target_function=DescribeServiceClassRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def get_game(self, request):
+        """
+        ゲームを取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_account_client.control.GetGameRequest.GetGameRequest
+        :return: 結果
+        :rtype: gs2_account_client.control.GetGameResult.GetGameResult
+        """
+        query_strings = {
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_account_client.control.GetGameRequest import GetGameRequest
+
+        from gs2_account_client.control.GetGameResult import GetGameResult
+        return GetGameResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
+            service=self.ENDPOINT,
+            component=GetGameRequest.Constant.MODULE,
+            target_function=GetGameRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def get_game_status(self, request):
+        """
+        ゲームのステータスを取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_account_client.control.GetGameStatusRequest.GetGameStatusRequest
+        :return: 結果
+        :rtype: gs2_account_client.control.GetGameStatusResult.GetGameStatusResult
+        """
+        query_strings = {
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_account_client.control.GetGameStatusRequest import GetGameStatusRequest
+
+        from gs2_account_client.control.GetGameStatusResult import GetGameStatusResult
+        return GetGameStatusResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/status",
+            service=self.ENDPOINT,
+            component=GetGameStatusRequest.Constant.MODULE,
+            target_function=GetGameStatusRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def update_game(self, request):
+        """
+        ゲームを更新します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_account_client.control.UpdateGameRequest.UpdateGameRequest
+        :return: 結果
+        :rtype: gs2_account_client.control.UpdateGameResult.UpdateGameResult
+        """
+        body = { 
+            "serviceClass": request.get_service_class(),
+            "changePasswordIfTakeOver": request.get_change_password_if_take_over(),
+        }
+        if request.get_description() is not None:
+            body["description"] = request.get_description()
+        if request.get_create_account_trigger_script() is not None:
+            body["createAccountTriggerScript"] = request.get_create_account_trigger_script()
+        if request.get_create_account_done_trigger_script() is not None:
+            body["createAccountDoneTriggerScript"] = request.get_create_account_done_trigger_script()
+        if request.get_authentication_trigger_script() is not None:
+            body["authenticationTriggerScript"] = request.get_authentication_trigger_script()
+        if request.get_authentication_done_trigger_script() is not None:
+            body["authenticationDoneTriggerScript"] = request.get_authentication_done_trigger_script()
+        if request.get_create_take_over_trigger_script() is not None:
+            body["createTakeOverTriggerScript"] = request.get_create_take_over_trigger_script()
+        if request.get_create_take_over_done_trigger_script() is not None:
+            body["createTakeOverDoneTriggerScript"] = request.get_create_take_over_done_trigger_script()
+        if request.get_do_take_over_trigger_script() is not None:
+            body["doTakeOverTriggerScript"] = request.get_do_take_over_trigger_script()
+        if request.get_do_take_over_done_trigger_script() is not None:
+            body["doTakeOverDoneTriggerScript"] = request.get_do_take_over_done_trigger_script()
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_account_client.control.UpdateGameRequest import UpdateGameRequest
+        from gs2_account_client.control.UpdateGameResult import UpdateGameResult
+        return UpdateGameResult(self._do_put_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
+            service=self.ENDPOINT,
+            component=UpdateGameRequest.Constant.MODULE,
+            target_function=UpdateGameRequest.Constant.FUNCTION,
+            body=body,
+            headers=headers
+        ))
 
     def create_take_over(self, request):
         """
@@ -174,78 +391,15 @@ class Gs2AccountClient(AbstractGs2Client):
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.CreateTakeOverRequest import CreateTakeOverRequest
-
         from gs2_account_client.control.CreateTakeOverResult import CreateTakeOverResult
         return CreateTakeOverResult(self._do_post_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover",
             service=self.ENDPOINT,
-            module=CreateTakeOverRequest.Constant.MODULE,
-            function=CreateTakeOverRequest.Constant.FUNCTION,
+            component=CreateTakeOverRequest.Constant.MODULE,
+            target_function=CreateTakeOverRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
-
-
-
-    def delete_account(self, request):
-        """
-        アカウントを削除します<br>
-        <br>
-        - 消費クオータ: 10<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_account_client.control.DeleteAccountRequest.DeleteAccountRequest
-
-        """
-
-        query_strings = {
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_account_client.control.DeleteAccountRequest import DeleteAccountRequest
-
-        self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
-            service=self.ENDPOINT,
-            module=DeleteAccountRequest.Constant.MODULE,
-            function=DeleteAccountRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        )
-
-
-
-    def delete_game(self, request):
-        """
-        ゲームを削除します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_account_client.control.DeleteGameRequest.DeleteGameRequest
-
-        """
-
-        query_strings = {
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_account_client.control.DeleteGameRequest import DeleteGameRequest
-
-        self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
-            service=self.ENDPOINT,
-            module=DeleteGameRequest.Constant.MODULE,
-            function=DeleteGameRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        )
-
-
 
     def delete_take_over(self, request):
         """
@@ -255,151 +409,36 @@ class Gs2AccountClient(AbstractGs2Client):
         <br>
         :param request: リクエストパラメータ
         :type request: gs2_account_client.control.DeleteTakeOverRequest.DeleteTakeOverRequest
-
         """
-
-        query_strings = {
-
-        }
+        query_strings = {}
         headers = { 
             "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.DeleteTakeOverRequest import DeleteTakeOverRequest
-
         self._do_delete_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else request.get_type())) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else request.get_user_identifier())) + "",
             service=self.ENDPOINT,
-            module=DeleteTakeOverRequest.Constant.MODULE,
-            function=DeleteTakeOverRequest.Constant.FUNCTION,
+            component=DeleteTakeOverRequest.Constant.MODULE,
+            target_function=DeleteTakeOverRequest.Constant.FUNCTION,
             query_strings=query_strings,
             headers=headers
         )
-
-
-
-    def describe_account(self, request):
-        """
-        アカウントを取得します<br>
-        <br>
-        - 消費クオータ: 50件あたり5<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_account_client.control.DescribeAccountRequest.DescribeAccountRequest
-        :return: 結果
-        :rtype: gs2_account_client.control.DescribeAccountResult.DescribeAccountResult
-        """
-
-        query_strings = {
-
-            'pageToken': request.get_page_token(),
-
-            'limit': request.get_limit(),
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_account_client.control.DescribeAccountRequest import DescribeAccountRequest
-
-        from gs2_account_client.control.DescribeAccountResult import DescribeAccountResult
-        return DescribeAccountResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account",
-            service=self.ENDPOINT,
-            module=DescribeAccountRequest.Constant.MODULE,
-            function=DescribeAccountRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        ))
-
-
-
-    def describe_game(self, request):
-        """
-        ゲームの一覧を取得します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_account_client.control.DescribeGameRequest.DescribeGameRequest
-        :return: 結果
-        :rtype: gs2_account_client.control.DescribeGameResult.DescribeGameResult
-        """
-
-        query_strings = {
-
-            'pageToken': request.get_page_token(),
-
-            'limit': request.get_limit(),
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_account_client.control.DescribeGameRequest import DescribeGameRequest
-
-        from gs2_account_client.control.DescribeGameResult import DescribeGameResult
-        return DescribeGameResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game",
-            service=self.ENDPOINT,
-            module=DescribeGameRequest.Constant.MODULE,
-            function=DescribeGameRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        ))
-
-
-
-    def describe_service_class(self, request):
-        """
-        サービスクラスの一覧を取得します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_account_client.control.DescribeServiceClassRequest.DescribeServiceClassRequest
-        :return: 結果
-        :rtype: gs2_account_client.control.DescribeServiceClassResult.DescribeServiceClassResult
-        """
-
-        query_strings = {
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_account_client.control.DescribeServiceClassRequest import DescribeServiceClassRequest
-
-        from gs2_account_client.control.DescribeServiceClassResult import DescribeServiceClassResult
-        return DescribeServiceClassResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/serviceClass",
-            service=self.ENDPOINT,
-            module=DescribeServiceClassRequest.Constant.MODULE,
-            function=DescribeServiceClassRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        ))
-
-
 
     def describe_take_over(self, request):
         """
         引き継ぎ情報を取得します<br>
         <br>
         - 消費クオータ: 50件あたり5<br>
-        <br>
-        :param request: リクエストパラメータ
+        <br>:param request: リクエストパラメータ
         :type request: gs2_account_client.control.DescribeTakeOverRequest.DescribeTakeOverRequest
         :return: 結果
         :rtype: gs2_account_client.control.DescribeTakeOverResult.DescribeTakeOverResult
         """
-
         query_strings = {
-
             'pageToken': request.get_page_token(),
-
             'limit': request.get_limit(),
-
         }
         headers = { 
             "X-GS2-ACCESS-TOKEN": request.get_access_token()
@@ -412,14 +451,11 @@ class Gs2AccountClient(AbstractGs2Client):
         return DescribeTakeOverResult(self._do_get_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover",
             service=self.ENDPOINT,
-            module=DescribeTakeOverRequest.Constant.MODULE,
-            function=DescribeTakeOverRequest.Constant.FUNCTION,
+            component=DescribeTakeOverRequest.Constant.MODULE,
+            target_function=DescribeTakeOverRequest.Constant.FUNCTION,
             query_strings=query_strings,
             headers=headers
         ))
-
-
-
 
     def do_take_over(self, request):
         """
@@ -442,95 +478,27 @@ class Gs2AccountClient(AbstractGs2Client):
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.DoTakeOverRequest import DoTakeOverRequest
-
         from gs2_account_client.control.DoTakeOverResult import DoTakeOverResult
         return DoTakeOverResult(self._do_post_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else request.get_type())) + "",
             service=self.ENDPOINT,
-            module=DoTakeOverRequest.Constant.MODULE,
-            function=DoTakeOverRequest.Constant.FUNCTION,
+            component=DoTakeOverRequest.Constant.MODULE,
+            target_function=DoTakeOverRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
-
-
-
-    def get_game(self, request):
-        """
-        ゲームを取得します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_account_client.control.GetGameRequest.GetGameRequest
-        :return: 結果
-        :rtype: gs2_account_client.control.GetGameResult.GetGameResult
-        """
-
-        query_strings = {
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_account_client.control.GetGameRequest import GetGameRequest
-
-        from gs2_account_client.control.GetGameResult import GetGameResult
-        return GetGameResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
-            service=self.ENDPOINT,
-            module=GetGameRequest.Constant.MODULE,
-            function=GetGameRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        ))
-
-
-
-    def get_game_status(self, request):
-        """
-        ゲームのステータスを取得します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_account_client.control.GetGameStatusRequest.GetGameStatusRequest
-        :return: 結果
-        :rtype: gs2_account_client.control.GetGameStatusResult.GetGameStatusResult
-        """
-
-        query_strings = {
-
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_account_client.control.GetGameStatusRequest import GetGameStatusRequest
-
-        from gs2_account_client.control.GetGameStatusResult import GetGameStatusResult
-        return GetGameStatusResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/status",
-            service=self.ENDPOINT,
-            module=GetGameStatusRequest.Constant.MODULE,
-            function=GetGameStatusRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        ))
-
-
 
     def get_take_over(self, request):
         """
         引き継ぎ情報を取得します<br>
         <br>
         - 消費クオータ: 5<br>
-        <br>
-        :param request: リクエストパラメータ
+        <br>:param request: リクエストパラメータ
         :type request: gs2_account_client.control.GetTakeOverRequest.GetTakeOverRequest
         :return: 結果
         :rtype: gs2_account_client.control.GetTakeOverResult.GetTakeOverResult
         """
-
         query_strings = {
-
         }
         headers = { 
             "X-GS2-ACCESS-TOKEN": request.get_access_token()
@@ -543,59 +511,11 @@ class Gs2AccountClient(AbstractGs2Client):
         return GetTakeOverResult(self._do_get_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else request.get_type())) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else request.get_user_identifier())) + "",
             service=self.ENDPOINT,
-            module=GetTakeOverRequest.Constant.MODULE,
-            function=GetTakeOverRequest.Constant.FUNCTION,
+            component=GetTakeOverRequest.Constant.MODULE,
+            target_function=GetTakeOverRequest.Constant.FUNCTION,
             query_strings=query_strings,
             headers=headers
         ))
-
-
-
-    def update_game(self, request):
-        """
-        ゲームを更新します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_account_client.control.UpdateGameRequest.UpdateGameRequest
-        :return: 結果
-        :rtype: gs2_account_client.control.UpdateGameResult.UpdateGameResult
-        """
-        body = { 
-            "serviceClass": request.get_service_class(),
-            "changePasswordIfTakeOver": request.get_change_password_if_take_over(),
-        }
-
-        if request.get_description() is not None:
-            body["description"] = request.get_description()
-        if request.get_create_account_trigger_script() is not None:
-            body["createAccountTriggerScript"] = request.get_create_account_trigger_script()
-        if request.get_create_account_done_trigger_script() is not None:
-            body["createAccountDoneTriggerScript"] = request.get_create_account_done_trigger_script()
-        if request.get_create_take_over_trigger_script() is not None:
-            body["createTakeOverTriggerScript"] = request.get_create_take_over_trigger_script()
-        if request.get_create_take_over_done_trigger_script() is not None:
-            body["createTakeOverDoneTriggerScript"] = request.get_create_take_over_done_trigger_script()
-        if request.get_do_take_over_trigger_script() is not None:
-            body["doTakeOverTriggerScript"] = request.get_do_take_over_trigger_script()
-        if request.get_do_take_over_done_trigger_script() is not None:
-            body["doTakeOverDoneTriggerScript"] = request.get_do_take_over_done_trigger_script()
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_account_client.control.UpdateGameRequest import UpdateGameRequest
-
-        from gs2_account_client.control.UpdateGameResult import UpdateGameResult
-        return UpdateGameResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
-            service=self.ENDPOINT,
-            module=UpdateGameRequest.Constant.MODULE,
-            function=UpdateGameRequest.Constant.FUNCTION,
-            body=body,
-            headers=headers
-        ))
-
-
 
     def update_take_over(self, request):
         """
@@ -612,22 +532,18 @@ class Gs2AccountClient(AbstractGs2Client):
             "oldPassword": request.get_old_password(),
             "password": request.get_password(),
         }
-
         headers = { 
             "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.UpdateTakeOverRequest import UpdateTakeOverRequest
-
         from gs2_account_client.control.UpdateTakeOverResult import UpdateTakeOverResult
         return UpdateTakeOverResult(self._do_put_request(
             url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else request.get_type())) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else request.get_user_identifier())) + "",
             service=self.ENDPOINT,
-            module=UpdateTakeOverRequest.Constant.MODULE,
-            function=UpdateTakeOverRequest.Constant.FUNCTION,
+            component=UpdateTakeOverRequest.Constant.MODULE,
+            target_function=UpdateTakeOverRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
-
-

@@ -32,25 +32,51 @@ class CreateGameRequest(Gs2BasicRequest):
         super(CreateGameRequest, self).__init__(params)
         if params is None:
             self.__name = None
-            self.__description = None
-            self.__service_class = None
-            self.__change_password_if_take_over = None
-            self.__create_account_trigger_script = None
-            self.__create_account_done_trigger_script = None
-            self.__create_take_over_trigger_script = None
-            self.__create_take_over_done_trigger_script = None
-            self.__do_take_over_trigger_script = None
-            self.__do_take_over_done_trigger_script = None
         else:
             self.set_name(params['name'] if 'name' in params.keys() else None)
+        if params is None:
+            self.__description = None
+        else:
             self.set_description(params['description'] if 'description' in params.keys() else None)
+        if params is None:
+            self.__service_class = None
+        else:
             self.set_service_class(params['serviceClass'] if 'serviceClass' in params.keys() else None)
+        if params is None:
+            self.__change_password_if_take_over = None
+        else:
             self.set_change_password_if_take_over(params['changePasswordIfTakeOver'] if 'changePasswordIfTakeOver' in params.keys() else None)
+        if params is None:
+            self.__create_account_trigger_script = None
+        else:
             self.set_create_account_trigger_script(params['createAccountTriggerScript'] if 'createAccountTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__create_account_done_trigger_script = None
+        else:
             self.set_create_account_done_trigger_script(params['createAccountDoneTriggerScript'] if 'createAccountDoneTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__authentication_trigger_script = None
+        else:
+            self.set_authentication_trigger_script(params['authenticationTriggerScript'] if 'authenticationTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__authentication_done_trigger_script = None
+        else:
+            self.set_authentication_done_trigger_script(params['authenticationDoneTriggerScript'] if 'authenticationDoneTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__create_take_over_trigger_script = None
+        else:
             self.set_create_take_over_trigger_script(params['createTakeOverTriggerScript'] if 'createTakeOverTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__create_take_over_done_trigger_script = None
+        else:
             self.set_create_take_over_done_trigger_script(params['createTakeOverDoneTriggerScript'] if 'createTakeOverDoneTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__do_take_over_trigger_script = None
+        else:
             self.set_do_take_over_trigger_script(params['doTakeOverTriggerScript'] if 'doTakeOverTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__do_take_over_done_trigger_script = None
+        else:
             self.set_do_take_over_done_trigger_script(params['doTakeOverDoneTriggerScript'] if 'doTakeOverDoneTriggerScript' in params.keys() else None)
 
     def get_name(self):
@@ -67,6 +93,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param name: ゲームの名前
         :type name: unicode
         """
+        if not isinstance(name, unicode):
+            raise TypeError(type(name))
         self.__name = name
 
     def with_name(self, name):
@@ -94,6 +122,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param description: ゲームの説明
         :type description: unicode
         """
+        if not isinstance(description, unicode):
+            raise TypeError(type(description))
         self.__description = description
 
     def with_description(self, description):
@@ -121,6 +151,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param service_class: ゲームのサービスクラス
         :type service_class: unicode
         """
+        if not isinstance(service_class, unicode):
+            raise TypeError(type(service_class))
         self.__service_class = service_class
 
     def with_service_class(self, service_class):
@@ -148,6 +180,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param change_password_if_take_over: 引き継ぎ時にアカウントのパスワードを変更するか
         :type change_password_if_take_over: bool
         """
+        if not isinstance(change_password_if_take_over, bool):
+            raise TypeError(type(change_password_if_take_over))
         self.__change_password_if_take_over = change_password_if_take_over
 
     def with_change_password_if_take_over(self, change_password_if_take_over):
@@ -175,6 +209,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param create_account_trigger_script: アカウント新規作成時 に実行されるGS2-Script
         :type create_account_trigger_script: unicode
         """
+        if not isinstance(create_account_trigger_script, unicode):
+            raise TypeError(type(create_account_trigger_script))
         self.__create_account_trigger_script = create_account_trigger_script
 
     def with_create_account_trigger_script(self, create_account_trigger_script):
@@ -202,6 +238,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param create_account_done_trigger_script: アカウント新規作成完了時 に実行されるGS2-Script
         :type create_account_done_trigger_script: unicode
         """
+        if not isinstance(create_account_done_trigger_script, unicode):
+            raise TypeError(type(create_account_done_trigger_script))
         self.__create_account_done_trigger_script = create_account_done_trigger_script
 
     def with_create_account_done_trigger_script(self, create_account_done_trigger_script):
@@ -213,6 +251,64 @@ class CreateGameRequest(Gs2BasicRequest):
         :rtype: CreateGameRequest
         """
         self.set_create_account_done_trigger_script(create_account_done_trigger_script)
+        return self
+
+    def get_authentication_trigger_script(self):
+        """
+        認証時 に実行されるGS2-Scriptを取得
+        :return: 認証時 に実行されるGS2-Script
+        :rtype: unicode
+        """
+        return self.__authentication_trigger_script
+
+    def set_authentication_trigger_script(self, authentication_trigger_script):
+        """
+        認証時 に実行されるGS2-Scriptを設定
+        :param authentication_trigger_script: 認証時 に実行されるGS2-Script
+        :type authentication_trigger_script: unicode
+        """
+        if not isinstance(authentication_trigger_script, unicode):
+            raise TypeError(type(authentication_trigger_script))
+        self.__authentication_trigger_script = authentication_trigger_script
+
+    def with_authentication_trigger_script(self, authentication_trigger_script):
+        """
+        認証時 に実行されるGS2-Scriptを設定
+        :param authentication_trigger_script: 認証時 に実行されるGS2-Script
+        :type authentication_trigger_script: unicode
+        :return: this
+        :rtype: CreateGameRequest
+        """
+        self.set_authentication_trigger_script(authentication_trigger_script)
+        return self
+
+    def get_authentication_done_trigger_script(self):
+        """
+        認証完了時 に実行されるGS2-Scriptを取得
+        :return: 認証完了時 に実行されるGS2-Script
+        :rtype: unicode
+        """
+        return self.__authentication_done_trigger_script
+
+    def set_authentication_done_trigger_script(self, authentication_done_trigger_script):
+        """
+        認証完了時 に実行されるGS2-Scriptを設定
+        :param authentication_done_trigger_script: 認証完了時 に実行されるGS2-Script
+        :type authentication_done_trigger_script: unicode
+        """
+        if not isinstance(authentication_done_trigger_script, unicode):
+            raise TypeError(type(authentication_done_trigger_script))
+        self.__authentication_done_trigger_script = authentication_done_trigger_script
+
+    def with_authentication_done_trigger_script(self, authentication_done_trigger_script):
+        """
+        認証完了時 に実行されるGS2-Scriptを設定
+        :param authentication_done_trigger_script: 認証完了時 に実行されるGS2-Script
+        :type authentication_done_trigger_script: unicode
+        :return: this
+        :rtype: CreateGameRequest
+        """
+        self.set_authentication_done_trigger_script(authentication_done_trigger_script)
         return self
 
     def get_create_take_over_trigger_script(self):
@@ -229,6 +325,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param create_take_over_trigger_script: 引き継ぎ情報登録時 に実行されるGS2-Script
         :type create_take_over_trigger_script: unicode
         """
+        if not isinstance(create_take_over_trigger_script, unicode):
+            raise TypeError(type(create_take_over_trigger_script))
         self.__create_take_over_trigger_script = create_take_over_trigger_script
 
     def with_create_take_over_trigger_script(self, create_take_over_trigger_script):
@@ -256,6 +354,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param create_take_over_done_trigger_script: 引き継ぎ情報登録完了時 に実行されるGS2-Script
         :type create_take_over_done_trigger_script: unicode
         """
+        if not isinstance(create_take_over_done_trigger_script, unicode):
+            raise TypeError(type(create_take_over_done_trigger_script))
         self.__create_take_over_done_trigger_script = create_take_over_done_trigger_script
 
     def with_create_take_over_done_trigger_script(self, create_take_over_done_trigger_script):
@@ -283,6 +383,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param do_take_over_trigger_script: 引き継ぎ実行時 に実行されるGS2-Script
         :type do_take_over_trigger_script: unicode
         """
+        if not isinstance(do_take_over_trigger_script, unicode):
+            raise TypeError(type(do_take_over_trigger_script))
         self.__do_take_over_trigger_script = do_take_over_trigger_script
 
     def with_do_take_over_trigger_script(self, do_take_over_trigger_script):
@@ -310,6 +412,8 @@ class CreateGameRequest(Gs2BasicRequest):
         :param do_take_over_done_trigger_script: 引き継ぎ実行完了時 に実行されるGS2-Script
         :type do_take_over_done_trigger_script: unicode
         """
+        if not isinstance(do_take_over_done_trigger_script, unicode):
+            raise TypeError(type(do_take_over_done_trigger_script))
         self.__do_take_over_done_trigger_script = do_take_over_done_trigger_script
 
     def with_do_take_over_done_trigger_script(self, do_take_over_done_trigger_script):

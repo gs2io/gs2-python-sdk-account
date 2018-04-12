@@ -68,35 +68,6 @@ class GetTakeOverRequest(Gs2UserRequest):
         self.set_game_name(game_name)
         return self
 
-    def get_type(self):
-        """
-        取得する引き継ぎ情報の種類を指定します。を取得
-        :return: 取得する引き継ぎ情報の種類を指定します。
-        :rtype: int
-        """
-        return self.__type
-
-    def set_type(self, type):
-        """
-        取得する引き継ぎ情報の種類を指定します。を設定
-        :param type: 取得する引き継ぎ情報の種類を指定します。
-        :type type: int
-        """
-        if not isinstance(type, int):
-            raise TypeError(type(type))
-        self.__type = type
-
-    def with_type(self, type):
-        """
-        取得する引き継ぎ情報の種類を指定します。を設定
-        :param type: 取得する引き継ぎ情報の種類を指定します。
-        :type type: int
-        :return: this
-        :rtype: GetTakeOverRequest
-        """
-        self.set_type(type)
-        return self
-
     def get_user_identifier(self):
         """
         取得する引き継ぎ情報のユーザ固有IDを指定します。を取得
@@ -124,4 +95,33 @@ class GetTakeOverRequest(Gs2UserRequest):
         :rtype: GetTakeOverRequest
         """
         self.set_user_identifier(user_identifier)
+        return self
+
+    def get_type(self):
+        """
+        取得する引き継ぎ情報の種類を指定します。を取得
+        :return: 取得する引き継ぎ情報の種類を指定します。
+        :rtype: int
+        """
+        return self.__type
+
+    def set_type(self, _type):
+        """
+        取得する引き継ぎ情報の種類を指定します。を設定
+        :param _type: 取得する引き継ぎ情報の種類を指定します。
+        :type _type: int
+        """
+        if not isinstance(_type, int):
+            raise TypeError(type(_type))
+        self.__type = _type
+
+    def with_type(self, _type):
+        """
+        取得する引き継ぎ情報の種類を指定します。を設定
+        :param _type: 取得する引き継ぎ情報の種類を指定します。
+        :type _type: int
+        :return: this
+        :rtype: GetTakeOverRequest
+        """
+        self.set_type(_type)
         return self

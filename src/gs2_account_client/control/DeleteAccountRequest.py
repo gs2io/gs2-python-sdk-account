@@ -32,9 +32,11 @@ class DeleteAccountRequest(Gs2BasicRequest):
         super(DeleteAccountRequest, self).__init__(params)
         if params is None:
             self.__game_name = None
-            self.__user_id = None
         else:
             self.set_game_name(params['gameName'] if 'gameName' in params.keys() else None)
+        if params is None:
+            self.__user_id = None
+        else:
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
 
     def get_game_name(self):
@@ -51,6 +53,8 @@ class DeleteAccountRequest(Gs2BasicRequest):
         :param game_name: ゲームの名前を指定します。
         :type game_name: unicode
         """
+        if not isinstance(game_name, unicode):
+            raise TypeError(type(game_name))
         self.__game_name = game_name
 
     def with_game_name(self, game_name):
@@ -78,6 +82,8 @@ class DeleteAccountRequest(Gs2BasicRequest):
         :param user_id: 削除する対象アカウントのユーザIDを指定します。
         :type user_id: unicode
         """
+        if not isinstance(user_id, unicode):
+            raise TypeError(type(user_id))
         self.__user_id = user_id
 
     def with_user_id(self, user_id):

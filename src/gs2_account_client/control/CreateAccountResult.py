@@ -25,13 +25,12 @@ class CreateAccountResult(object):
         :type response: レスポンスボディ
         :type response: dict
         """
-        
         self.__item = Account(response['item']) if 'item' in response.keys() and response['item'] is not None else None
 
     def get_item(self):
         """
-        引き継ぎ情報を取得
-        :return: 引き継ぎ情報
+        アカウント情報を取得
+        :return: アカウント情報
         :rtype: Account
         """
         return self.__item
@@ -42,7 +41,6 @@ class CreateAccountResult(object):
         :return: 辞書配列
         :rtype: dict
         """
-        return { 
+        return {
             'item': self.__item.to_dict(),
-        
         }

@@ -14,6 +14,7 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
+
 class Game(object):
 
     def __init__(self, params=None):
@@ -26,6 +27,8 @@ class Game(object):
             self.__change_password_if_take_over = None
             self.__create_account_trigger_script = None
             self.__create_account_done_trigger_script = None
+            self.__authentication_trigger_script = None
+            self.__authentication_done_trigger_script = None
             self.__create_take_over_trigger_script = None
             self.__create_take_over_done_trigger_script = None
             self.__do_take_over_trigger_script = None
@@ -41,13 +44,14 @@ class Game(object):
             self.set_change_password_if_take_over(params['changePasswordIfTakeOver'] if 'changePasswordIfTakeOver' in params.keys() else None)
             self.set_create_account_trigger_script(params['createAccountTriggerScript'] if 'createAccountTriggerScript' in params.keys() else None)
             self.set_create_account_done_trigger_script(params['createAccountDoneTriggerScript'] if 'createAccountDoneTriggerScript' in params.keys() else None)
+            self.set_authentication_trigger_script(params['authenticationTriggerScript'] if 'authenticationTriggerScript' in params.keys() else None)
+            self.set_authentication_done_trigger_script(params['authenticationDoneTriggerScript'] if 'authenticationDoneTriggerScript' in params.keys() else None)
             self.set_create_take_over_trigger_script(params['createTakeOverTriggerScript'] if 'createTakeOverTriggerScript' in params.keys() else None)
             self.set_create_take_over_done_trigger_script(params['createTakeOverDoneTriggerScript'] if 'createTakeOverDoneTriggerScript' in params.keys() else None)
             self.set_do_take_over_trigger_script(params['doTakeOverTriggerScript'] if 'doTakeOverTriggerScript' in params.keys() else None)
             self.set_do_take_over_done_trigger_script(params['doTakeOverDoneTriggerScript'] if 'doTakeOverDoneTriggerScript' in params.keys() else None)
             self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
             self.set_update_at(params['updateAt'] if 'updateAt' in params.keys() else None)
-
 
     def get_game_id(self):
         """
@@ -177,6 +181,38 @@ class Game(object):
         """
         self.__create_account_done_trigger_script = create_account_done_trigger_script
 
+    def get_authentication_trigger_script(self):
+        """
+        認証時 に実行されるGS2-Scriptを取得
+        :return: 認証時 に実行されるGS2-Script
+        :rtype: unicode
+        """
+        return self.__authentication_trigger_script
+
+    def set_authentication_trigger_script(self, authentication_trigger_script):
+        """
+        認証時 に実行されるGS2-Scriptを設定
+        :param authentication_trigger_script: 認証時 に実行されるGS2-Script
+        :type authentication_trigger_script: unicode
+        """
+        self.__authentication_trigger_script = authentication_trigger_script
+
+    def get_authentication_done_trigger_script(self):
+        """
+        認証完了時 に実行されるGS2-Scriptを取得
+        :return: 認証完了時 に実行されるGS2-Script
+        :rtype: unicode
+        """
+        return self.__authentication_done_trigger_script
+
+    def set_authentication_done_trigger_script(self, authentication_done_trigger_script):
+        """
+        認証完了時 に実行されるGS2-Scriptを設定
+        :param authentication_done_trigger_script: 認証完了時 に実行されるGS2-Script
+        :type authentication_done_trigger_script: unicode
+        """
+        self.__authentication_done_trigger_script = authentication_done_trigger_script
+
     def get_create_take_over_trigger_script(self):
         """
         引き継ぎ情報登録時 に実行されるGS2-Scriptを取得
@@ -274,7 +310,7 @@ class Game(object):
         self.__update_at = update_at
 
     def to_dict(self):
-        return { 
+        return {
             "gameId": self.__game_id,
             "ownerId": self.__owner_id,
             "name": self.__name,
@@ -283,6 +319,8 @@ class Game(object):
             "changePasswordIfTakeOver": self.__change_password_if_take_over,
             "createAccountTriggerScript": self.__create_account_trigger_script,
             "createAccountDoneTriggerScript": self.__create_account_done_trigger_script,
+            "authenticationTriggerScript": self.__authentication_trigger_script,
+            "authenticationDoneTriggerScript": self.__authentication_done_trigger_script,
             "createTakeOverTriggerScript": self.__create_take_over_trigger_script,
             "createTakeOverDoneTriggerScript": self.__create_take_over_done_trigger_script,
             "doTakeOverTriggerScript": self.__do_take_over_trigger_script,
