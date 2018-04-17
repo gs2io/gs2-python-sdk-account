@@ -61,7 +61,7 @@ class AuthenticationRequest(Gs2BasicRequest):
         :param game_name: ゲームの名前を指定します。
         :type game_name: unicode
         """
-        if game_name and not isinstance(game_name, unicode):
+        if game_name and not (isinstance(game_name, str) or isinstance(game_name, unicode)):
             raise TypeError(type(game_name))
         self.__game_name = game_name
 
@@ -90,7 +90,7 @@ class AuthenticationRequest(Gs2BasicRequest):
         :param user_id: 認証する対象アカウントのユーザIDを指定します。
         :type user_id: unicode
         """
-        if user_id and not isinstance(user_id, unicode):
+        if user_id and not (isinstance(user_id, str) or isinstance(user_id, unicode)):
             raise TypeError(type(user_id))
         self.__user_id = user_id
 
@@ -119,7 +119,7 @@ class AuthenticationRequest(Gs2BasicRequest):
         :param key_name: 認証結果の暗号化に利用する GS2-Key の暗号鍵名
         :type key_name: unicode
         """
-        if key_name and not isinstance(key_name, unicode):
+        if key_name and not (isinstance(key_name, str) or isinstance(key_name, unicode)):
             raise TypeError(type(key_name))
         self.__key_name = key_name
 
@@ -148,7 +148,7 @@ class AuthenticationRequest(Gs2BasicRequest):
         :param password: 認証に利用するパスワード
         :type password: unicode
         """
-        if password and not isinstance(password, unicode):
+        if password and not (isinstance(password, str) or isinstance(password, unicode)):
             raise TypeError(type(password))
         self.__password = password
 
