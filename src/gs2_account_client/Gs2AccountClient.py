@@ -16,6 +16,7 @@
 
 from gs2_core_client.Gs2Constant import Gs2Constant
 from gs2_core_client.AbstractGs2Client import AbstractGs2Client
+from aws_sdk_for_serverless.common import url_encoder
 
 
 class Gs2AccountClient(AbstractGs2Client):
@@ -55,7 +56,7 @@ class Gs2AccountClient(AbstractGs2Client):
         from gs2_account_client.control.AuthenticationRequest import AuthenticationRequest
         from gs2_account_client.control.AuthenticationResult import AuthenticationResult
         return AuthenticationResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/account/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
             service=self.ENDPOINT,
             component=AuthenticationRequest.Constant.MODULE,
             target_function=AuthenticationRequest.Constant.FUNCTION,
@@ -84,7 +85,7 @@ class Gs2AccountClient(AbstractGs2Client):
         from gs2_account_client.control.CreateAccountRequest import CreateAccountRequest
         from gs2_account_client.control.CreateAccountResult import CreateAccountResult
         return CreateAccountResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/account",
             service=self.ENDPOINT,
             component=CreateAccountRequest.Constant.MODULE,
             target_function=CreateAccountRequest.Constant.FUNCTION,
@@ -108,7 +109,7 @@ class Gs2AccountClient(AbstractGs2Client):
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.DeleteAccountRequest import DeleteAccountRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/account/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
             service=self.ENDPOINT,
             component=DeleteAccountRequest.Constant.MODULE,
             target_function=DeleteAccountRequest.Constant.FUNCTION,
@@ -138,7 +139,7 @@ class Gs2AccountClient(AbstractGs2Client):
 
         from gs2_account_client.control.DescribeAccountResult import DescribeAccountResult
         return DescribeAccountResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/account",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/account",
             service=self.ENDPOINT,
             component=DescribeAccountRequest.Constant.MODULE,
             target_function=DescribeAccountRequest.Constant.FUNCTION,
@@ -208,7 +209,7 @@ class Gs2AccountClient(AbstractGs2Client):
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.DeleteGameRequest import DeleteGameRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "",
             service=self.ENDPOINT,
             component=DeleteGameRequest.Constant.MODULE,
             target_function=DeleteGameRequest.Constant.FUNCTION,
@@ -288,7 +289,7 @@ class Gs2AccountClient(AbstractGs2Client):
 
         from gs2_account_client.control.GetGameResult import GetGameResult
         return GetGameResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "",
             service=self.ENDPOINT,
             component=GetGameRequest.Constant.MODULE,
             target_function=GetGameRequest.Constant.FUNCTION,
@@ -314,7 +315,7 @@ class Gs2AccountClient(AbstractGs2Client):
 
         from gs2_account_client.control.GetGameStatusResult import GetGameStatusResult
         return GetGameStatusResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/status",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/status",
             service=self.ENDPOINT,
             component=GetGameStatusRequest.Constant.MODULE,
             target_function=GetGameStatusRequest.Constant.FUNCTION,
@@ -360,7 +361,7 @@ class Gs2AccountClient(AbstractGs2Client):
         from gs2_account_client.control.UpdateGameRequest import UpdateGameRequest
         from gs2_account_client.control.UpdateGameResult import UpdateGameResult
         return UpdateGameResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "",
             service=self.ENDPOINT,
             component=UpdateGameRequest.Constant.MODULE,
             target_function=UpdateGameRequest.Constant.FUNCTION,
@@ -393,7 +394,7 @@ class Gs2AccountClient(AbstractGs2Client):
         from gs2_account_client.control.CreateTakeOverRequest import CreateTakeOverRequest
         from gs2_account_client.control.CreateTakeOverResult import CreateTakeOverResult
         return CreateTakeOverResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/takeover",
             service=self.ENDPOINT,
             component=CreateTakeOverRequest.Constant.MODULE,
             target_function=CreateTakeOverRequest.Constant.FUNCTION,
@@ -418,7 +419,7 @@ class Gs2AccountClient(AbstractGs2Client):
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_account_client.control.DeleteTakeOverRequest import DeleteTakeOverRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else request.get_type())) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else request.get_user_identifier())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else url_encoder.encode(request.get_type()))) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else url_encoder.encode(request.get_user_identifier()))) + "",
             service=self.ENDPOINT,
             component=DeleteTakeOverRequest.Constant.MODULE,
             target_function=DeleteTakeOverRequest.Constant.FUNCTION,
@@ -449,7 +450,7 @@ class Gs2AccountClient(AbstractGs2Client):
 
         from gs2_account_client.control.DescribeTakeOverResult import DescribeTakeOverResult
         return DescribeTakeOverResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/takeover",
             service=self.ENDPOINT,
             component=DescribeTakeOverRequest.Constant.MODULE,
             target_function=DescribeTakeOverRequest.Constant.FUNCTION,
@@ -480,7 +481,7 @@ class Gs2AccountClient(AbstractGs2Client):
         from gs2_account_client.control.DoTakeOverRequest import DoTakeOverRequest
         from gs2_account_client.control.DoTakeOverResult import DoTakeOverResult
         return DoTakeOverResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else request.get_type())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else url_encoder.encode(request.get_type()))) + "",
             service=self.ENDPOINT,
             component=DoTakeOverRequest.Constant.MODULE,
             target_function=DoTakeOverRequest.Constant.FUNCTION,
@@ -509,7 +510,7 @@ class Gs2AccountClient(AbstractGs2Client):
 
         from gs2_account_client.control.GetTakeOverResult import GetTakeOverResult
         return GetTakeOverResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else request.get_type())) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else request.get_user_identifier())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else url_encoder.encode(request.get_type()))) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else url_encoder.encode(request.get_user_identifier()))) + "",
             service=self.ENDPOINT,
             component=GetTakeOverRequest.Constant.MODULE,
             target_function=GetTakeOverRequest.Constant.FUNCTION,
@@ -540,7 +541,7 @@ class Gs2AccountClient(AbstractGs2Client):
         from gs2_account_client.control.UpdateTakeOverRequest import UpdateTakeOverRequest
         from gs2_account_client.control.UpdateTakeOverResult import UpdateTakeOverResult
         return UpdateTakeOverResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else request.get_game_name())) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else request.get_type())) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else request.get_user_identifier())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/game/" + str(("null" if request.get_game_name() is None or request.get_game_name() == "" else url_encoder.encode(request.get_game_name()))) + "/takeover/" + str(("null" if request.get_type() is None or request.get_type() == "" else url_encoder.encode(request.get_type()))) + "/" + str(("null" if request.get_user_identifier() is None or request.get_user_identifier() == "" else url_encoder.encode(request.get_user_identifier()))) + "",
             service=self.ENDPOINT,
             component=UpdateTakeOverRequest.Constant.MODULE,
             target_function=UpdateTakeOverRequest.Constant.FUNCTION,
