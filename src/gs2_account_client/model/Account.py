@@ -75,6 +75,12 @@ class Account(object):
         """
         self.__create_at = create_at
 
+    def __getitem__(self, key):
+        items = self.to_dict()
+        if key in items.keys():
+            return items[key]
+        return super(Account, self).__getitem__(key)
+
     def to_dict(self):
         return {
             "userId": self.__user_id,
