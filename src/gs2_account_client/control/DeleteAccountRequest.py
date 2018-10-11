@@ -53,7 +53,7 @@ class DeleteAccountRequest(Gs2BasicRequest):
         :param game_name: ゲームの名前を指定します。
         :type game_name: unicode
         """
-        if game_name and not (isinstance(game_name, str) or isinstance(game_name, unicode)):
+        if game_name is not None and not (isinstance(game_name, str) or isinstance(game_name, unicode)):
             raise TypeError(type(game_name))
         self.__game_name = game_name
 
@@ -82,7 +82,7 @@ class DeleteAccountRequest(Gs2BasicRequest):
         :param user_id: 削除する対象アカウントのユーザIDを指定します。
         :type user_id: unicode
         """
-        if user_id and not (isinstance(user_id, str) or isinstance(user_id, unicode)):
+        if user_id is not None and not (isinstance(user_id, str) or isinstance(user_id, unicode)):
             raise TypeError(type(user_id))
         self.__user_id = user_id
 
