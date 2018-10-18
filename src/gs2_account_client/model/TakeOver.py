@@ -85,13 +85,13 @@ class TakeOver(object):
         """
         return self.__type
 
-    def set_type(self, _type):
+    def set_type(self, type_):
         """
         アカウント種別を設定
-        :param _type: アカウント種別
-        :type _type: int
+        :param type_: アカウント種別
+        :type type_: int
         """
-        self.__type = _type
+        self.__type = type_
 
     def __getitem__(self, key):
         items = self.to_dict()

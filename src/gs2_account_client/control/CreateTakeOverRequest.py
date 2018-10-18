@@ -136,23 +136,23 @@ class CreateTakeOverRequest(Gs2UserRequest):
         """
         return self.__type
 
-    def set_type(self, _type):
+    def set_type(self, type_):
         """
         引き継ぎ情報の種類を表す数値を設定
-        :param _type: 引き継ぎ情報の種類を表す数値
-        :type _type: int
+        :param type_: 引き継ぎ情報の種類を表す数値
+        :type type_: int
         """
-        if type is not None and not isinstance(type, int):
-            raise TypeError(type(type))
-        self.__type = type
+        if type_ is not None and not isinstance(type_, int):
+            raise TypeError(type(type_))
+        self.__type = type_
 
-    def with_type(self, _type):
+    def with_type(self, type_):
         """
         引き継ぎ情報の種類を表す数値を設定
-        :param _type: 引き継ぎ情報の種類を表す数値
-        :type _type: int
+        :param type_: 引き継ぎ情報の種類を表す数値
+        :type type_: int
         :return: this
         :rtype: CreateTakeOverRequest
         """
-        self.set_type(_type)
+        self.set_type(type_)
         return self
